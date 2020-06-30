@@ -75,6 +75,15 @@ class MiniProgramGrant extends AbstractGrant
     protected function validateUser(ServerRequestInterface $request)
     {
         $laravelRequest = new Request($request->getParsedBody());
+        if(!$laravelRequest->has('provider')){
+            throw OAuthServerException::invalidRequest('provider');
+        }
+        if (is_null(!$laravelRequest->has('code'))) {
+            throw OAuthServerException::invalidRequest('code');
+        }
+        if (!$laravelRequest->has('user_info')) {
+            throw OAuthServerException::invalidRequest('user_info');
+        }
         $user = $this->getUserEntityByRequest($laravelRequest);
         if ($user instanceof UserEntityInterface === false) {
             $this->getEmitter()->emit(new RequestEvent(RequestEvent::USER_AUTHENTICATION_FAILED, $request));
