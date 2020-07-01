@@ -75,7 +75,7 @@ class MiniProgramGrant extends AbstractGrant
     protected function validateUser(ServerRequestInterface $request)
     {
         $laravelRequest = new Request($request->getParsedBody());
-        if(!$laravelRequest->has('provider')){
+        if (!$laravelRequest->has('provider')) {
             throw OAuthServerException::invalidRequest('provider');
         }
         if (is_null(!$laravelRequest->has('code'))) {
@@ -84,7 +84,7 @@ class MiniProgramGrant extends AbstractGrant
         if (!$laravelRequest->has('user_info')) {
             throw OAuthServerException::invalidRequest('user_info');
         }
-        $user = $this->getUserEntityByRequest($laravelRequest);
+        $user = $this->getUserEntityByRequest($laravelRequest->code, $laravelRequest->provider, $laravelRequest->user_info);
         if ($user instanceof UserEntityInterface === false) {
             $this->getEmitter()->emit(new RequestEvent(RequestEvent::USER_AUTHENTICATION_FAILED, $request));
             throw OAuthServerException::invalidCredentials();
@@ -100,14 +100,14 @@ class MiniProgramGrant extends AbstractGrant
      * @return \Laravel\Passport\Bridge\User|null
      * @throws OAuthServerException
      */
-    protected function getUserEntityByRequest(Request $request)
+    protected function getUserEntityByRequest($authorizationCode, $provider, $socialUser)
     {
         if (is_null($model = config('auth.providers.users.model'))) {
             throw OAuthServerException::serverError('Unable to determine user model from configuration.');
         }
         //Validator
         if (method_exists($model, 'findForPassportMiniProgramRequest')) {
-            $user = $model::findForPassportMiniProgramRequest($request);
+            $user = $model::findForPassportMiniProgramRequest($authorizationCode, $provider, $socialUser);
         } else {
             throw OAuthServerException::serverError('Unable to find findForPassportMiniProgramRequest method on user model.');
         }
