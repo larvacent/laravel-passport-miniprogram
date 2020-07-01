@@ -9,6 +9,7 @@
 namespace Larva\Passport\MiniProgram;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Laravel\Passport\Bridge\User;
 use League\OAuth2\Server\Entities\UserEntityInterface;
 use League\OAuth2\Server\Exception\OAuthServerException;
@@ -84,7 +85,8 @@ class MiniProgramGrant extends AbstractGrant
         if (!$laravelRequest->has('user_info')) {
             throw OAuthServerException::invalidRequest('user_info');
         }
-        $user = $this->getUserEntityByRequest($laravelRequest->code, $laravelRequest->provider, $laravelRequest->user_info);
+        $socialUser = new MiniProgramUser($laravelRequest->user_info);
+        $user = $this->getUserEntityByRequest($laravelRequest->code, $laravelRequest->provider, $socialUser);
         if ($user instanceof UserEntityInterface === false) {
             $this->getEmitter()->emit(new RequestEvent(RequestEvent::USER_AUTHENTICATION_FAILED, $request));
             throw OAuthServerException::invalidCredentials();
@@ -97,7 +99,7 @@ class MiniProgramGrant extends AbstractGrant
      *
      * @param string $authorizationCode
      * @param string $provider
-     * @param array $socialUser
+     * @param MiniProgramUser $socialUser
      * @return \Laravel\Passport\Bridge\User|null
      * @throws OAuthServerException
      */

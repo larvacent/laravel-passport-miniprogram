@@ -44,7 +44,7 @@ class User extends Authenticatable {
     * 
     * @param string $authorizationCode
     * @param string $provider Provider name as requested from oauth e.g. facebook
-    * @param array $socialUser
+    * @param MiniProgramUser $socialUser
     *
     * @return User|null|void
     */
