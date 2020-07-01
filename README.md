@@ -16,6 +16,11 @@ composer require larva/laravel-passport-miniprogram -vv
 
 在你的User模型类实现 `findForPassportMiniProgramRequest` 方法接收小程序提交的登录信息。
 
+## 原理说明
+
+验证用户登录，使用的是小程序内部的login获取到的code作为验证，服务器验证code通过获取到了session key 和 openid ,则认为提交的 user_info 参数是可信的。
+将会执行后续过程。你需要自行实现 findForPassportMiniProgramRequest 方法自己实现验证code的代码。 
+
 ## Usage
 
 ### Step 1 - Setting up the User model
