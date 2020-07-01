@@ -42,17 +42,14 @@ class User extends Authenticatable {
     /**
     * Find user using social provider's user
     * 
+    * @param string $authorizationCode
     * @param string $provider Provider name as requested from oauth e.g. facebook
-    * @param string $socialUser User of social provider
+    * @param array $socialUser
     *
-    * @return User
+    * @return User|null|void
     */
     public static function findForPassportMiniProgramRequest($authorizationCode, $provider, $socialUser) {
-        $account = SocialAccount::where('provider', $provider)->where('social_id', $socialUser->getId())->first();
-        if($account && $account->user) {
-            return $account->user;
-        }
-        return;
+        
     }
 }
 ```

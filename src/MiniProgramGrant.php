@@ -95,8 +95,9 @@ class MiniProgramGrant extends AbstractGrant
     /**
      * Retrieve user by request.
      *
-     * @param \Illuminate\Http\Request $request
-     *
+     * @param string $authorizationCode
+     * @param string $provider
+     * @param array $socialUser
      * @return \Laravel\Passport\Bridge\User|null
      * @throws OAuthServerException
      */
