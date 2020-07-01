@@ -147,6 +147,17 @@ class MiniProgramUser implements ArrayAccess
     }
 
     /**
+     * 设置Openid
+     * @param string $openid
+     * @return $this
+     */
+    public function setOpenid($openid)
+    {
+        $this->openid = $openid;
+        return $this;
+    }
+
+    /**
      * Get the openid for the user.
      *
      * @return string
@@ -154,6 +165,17 @@ class MiniProgramUser implements ArrayAccess
     public function getOpenid()
     {
         return $this->openid;
+    }
+
+    /**
+     * 设置SessionKey
+     * @param string $sessionKey
+     * @return $this
+     */
+    public function setSessionKey($sessionKey)
+    {
+        $this->sessionKey = $sessionKey;
+        return $this;
     }
 
     /**
@@ -179,7 +201,7 @@ class MiniProgramUser implements ArrayAccess
     /**
      * Set the raw user array from the provider.
      *
-     * @param  array  $user
+     * @param array $user
      * @return $this
      */
     public function setRaw(array $user)
@@ -192,7 +214,7 @@ class MiniProgramUser implements ArrayAccess
     /**
      * Map the given array onto the user's properties.
      *
-     * @param  array  $attributes
+     * @param array $attributes
      * @return $this
      */
     public function map(array $attributes)
@@ -207,7 +229,7 @@ class MiniProgramUser implements ArrayAccess
     /**
      * Determine if the given raw user attribute exists.
      *
-     * @param  string  $offset
+     * @param string $offset
      * @return bool
      */
     public function offsetExists($offset)
@@ -218,7 +240,7 @@ class MiniProgramUser implements ArrayAccess
     /**
      * Get the given key from the raw user.
      *
-     * @param  string  $offset
+     * @param string $offset
      * @return mixed
      */
     public function offsetGet($offset)
@@ -229,8 +251,8 @@ class MiniProgramUser implements ArrayAccess
     /**
      * Set the given attribute on the raw user array.
      *
-     * @param  string  $offset
-     * @param  mixed  $value
+     * @param string $offset
+     * @param mixed $value
      * @return void
      */
     public function offsetSet($offset, $value)
@@ -241,7 +263,7 @@ class MiniProgramUser implements ArrayAccess
     /**
      * Unset the given value from the raw user array.
      *
-     * @param  string  $offset
+     * @param string $offset
      * @return void
      */
     public function offsetUnset($offset)
