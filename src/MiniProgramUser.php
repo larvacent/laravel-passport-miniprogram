@@ -137,6 +137,17 @@ class MiniProgramUser implements ArrayAccess
     }
 
     /**
+     * 设置 UnionId
+     * @param string $unionid
+     * @return $this
+     */
+    public function setUnionid($unionid)
+    {
+        $this->unionid = $unionid;
+        return $this;
+    }
+
+    /**
      * Get the unionid for the user.
      *
      * @return string
