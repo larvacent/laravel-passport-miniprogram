@@ -9,7 +9,6 @@
 namespace Larva\Passport\MiniProgram;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use Laravel\Passport\Bridge\User;
 use League\OAuth2\Server\Entities\UserEntityInterface;
 use League\OAuth2\Server\Exception\OAuthServerException;

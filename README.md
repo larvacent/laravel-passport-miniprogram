@@ -26,7 +26,7 @@ composer require larva/laravel-passport-miniprogram -vv
 ### Step 1 - Setting up the User model
 
 On your `User` model and then add method `findForPassportMiniProgramRequest`.
-`findForPassportMiniProgramRequest` should accept two arguments i.e. `$provider` and `$socialUser`
+`findForPassportMiniProgramRequest` should accept two arguments i.e. `$provider` and `$user`
 
 **$provider - string - will be the social provider i.e. facebook, google, github etc.**
 
@@ -49,11 +49,11 @@ class User extends Authenticatable {
     * 
     * @param string $authorizationCode
     * @param string $provider Provider name as requested from oauth e.g. facebook
-    * @param MiniProgramUser $socialUser
+    * @param \Larva\Passport\MiniProgram\MiniProgramUser $socialUser
     *
     * @return User|null|void
     */
-    public static function findForPassportMiniProgramRequest($authorizationCode, $provider, $socialUser) {
+    public static function findForPassportMiniProgramRequest($authorizationCode, $provider, $user) {
         
     }
 }
